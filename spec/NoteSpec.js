@@ -38,35 +38,48 @@ describe("NotesApplication should", function() {
   });
 
   //check get method
-  describe("have get method that should", function() {
-    var x;
-    beforeEach(function() {
-      spyOn(oop, 'get');
-      var len = oop.notes.length;
-      var x = oop.get(len-1);
-      var y = oop.get(len);
+  describe("have get method that", function() {
+    var len = 0;
 
+    beforeEach(function() {
+      x = oop.get(len);
+    }); 
+    afterEach(function() {
+      len = oop.notes.length;
     }); 
 
-    it("retrieve a note using a specified id", function() {
-      console.log(typeof(x));
+    it("retrieves a note using a specified id", function() {
       expect(typeof(x)).toBe('string');
     });
 
-    it("throw error if requested note id does not exist", function() {
-      expect().toThrow();
+    it("throws error if requested note id does not exist", function() {
+      console.log("exception: " + oop.get(len));
+      expect(oop.get).toThrow();
     });
 });
   
 
   // check search method - return found result
-  it("find a specified search term", function() {
-    spyOn(oop, 'search');
-    var result = oop.search("for");
-    console.log(oop.search("for"));
-    //expect(oop.search).toHavebeenCalled();
-    expect(typeof(oop.search("for"))).toBe('string');
-  });
+  describe("have search method that", function() {
+    var term = "for";
+    beforeEach(function() {
+      x = oop.search(term);
+    }); 
+    afterEach(function() {
+      term = "unknown";
+    }); 
 
-  //
+    it("finds a specified search term", function() {
+      expect(x.length).toBeGreaterThan(0);
+    });
+    it("throws error if requested search term not found", function() {
+      expect(oop.search).toThrow();
+    });
+  });
+  
+
+  //check delete method
+  describe("have delete method that should", function() {
+    it()
+  });
 });
