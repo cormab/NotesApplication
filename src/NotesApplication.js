@@ -12,27 +12,45 @@ function NotesApplication(author) {
 	
 	// listNotes() - This function lists out each of the notes in the notes list in the following format. The note_id parameter below represents the respective index of each of the items in the list, the NOTE_CONTENT represent the note content and the author represents the note author.
 	this.listNotes  = function () {
-		for(let index = 0; index < this.notes.length; index++) {
-			console.log(
-				"Note ID: " + index + "\n" +
-				this.notes[index] + "\n" +
-				"By Author: " + this.author + "\n\n"
-			);
-			/*document.write(
-				"Note ID: " + index + "<br/>" +
-				this.notes[index] + "<br/>" +
-				"By Author: " + this.author + "<br/><br/>"
-			);*/
+		try {
+			if(this.notes.length < 1) {
+				for(let index = 0; index < this.notes.length; index++) {
+					console.log(
+						"Note ID: " + index + "\n" +
+						this.notes[index] + "\n" +
+						"By Author: " + this.author + "\n\n"
+					);
+					/*document.write(
+						"Note ID: " + index + "<br/>" +
+						this.notes[index] + "<br/>" +
+						"By Author: " + this.author + "<br/><br/>"
+					);*/
+				}
+			} else {
+				throw "Notes list is empty";
+			}
+		}
+		catch(err) {
+			console.log(err);
 		}
 	};
 	
 	// get(note_id) - This function takes a note_id which refers to the index of the note in the notes list and returns the content of that note as a string.
 	this.get = function (note_id) {
-		if(note_id >= 0 && note_id < this.notes.length) {
-			return this.notes[note_id];
-		} else {
-			return "Note ID is out of bounds";
+		var result;
+		try{
+			if(note_id >= 0 && note_id < this.notes.length) {
+				result = this.notes[note_id];
+			} else {
+				throw "Error - specified Note ID does not exist";
+			}
+			
 		}
+		catch(err) {
+			result = err;
+		}
+
+		return result;
 	};
 	
 	// search(search_text) - This function take a search string, search_text and returns all the notes with that text within it in the following format
@@ -43,11 +61,30 @@ function NotesApplication(author) {
 				result.push(this.notes[index]);
 			}
 		}
-		if(result.length > 0) {
-			return result;
-		} else {
-			return "Search text not found";
+		try {
+			if(result.length < 1) {
+				throw "Search text not found";
+			}
+		}
+		catch(err) {
+			result.push(err);
 		}		
+		return result;
+	};
+
+// delete(note_id) - This function deletes the note at the index note_id of the notes list.
+	this.delete = function(note_id) {
+		try{
+			if(note_id >= 0 && note_id < this.notes.length) {
+				this.notes.splice(note_id,1);
+			} else {
+				throw "Error - specified Note ID does not exist";
+			}
+			
+		}
+		catch(err) {
+			console.log(err);
+		}
 	};
 }
 
@@ -58,7 +95,8 @@ oop.create("OOP stands for Object Oriented Programming. OOP is a way of programm
 //oop.create("The main features of OOP are: Data Encapsulation, Inheritance and Polymorphism");
 //oop.create("Some OOP languages are JavaSript, Python, Java, Ruby, C/C++, etc");
 oop.listNotes();
-console.log("\nResult of running get: " + oop.get(0));
-console.log("\nResult of running search: " + oop.search("main"));	
+console.log("\nResult of running get: " + oop.get(5));
+console.log("\nResult of running search: " + oop.search("main"));
+oop.delete(5);
+oop.listNotes();
 */
-
