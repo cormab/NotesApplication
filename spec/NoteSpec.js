@@ -53,7 +53,6 @@ describe("NotesApplication should", function() {
     });
 
     it("throws error if requested note id does not exist", function() {
-      console.log("exception: " + oop.get(len));
       expect(oop.get).toThrow();
     });
 });
@@ -79,7 +78,39 @@ describe("NotesApplication should", function() {
   
 
   //check delete method
-  describe("have delete method that should", function() {
-    it()
+  describe("have delete method that", function() {
+    var len;
+
+    beforeEach(function() {
+      len = oop.notes.length
+      oop.delete(len-1);
+    }); 
+
+    it("deletes specified note", function() {
+      expect(oop.notes.length).toBeLessThan(len)
+    });
+    it("throws error if ID not found", function() {
+      expect(oop.delete).toThrow();
+    });
+  });
+
+  //check edit method
+  describe("have edit mothod that", function() {
+    var change = "OOP rocks!";
+    var x = 0;
+    
+    beforeEach(function() {
+      oop.edit(x, change);
+    });
+    afterEach(function() {
+      x++;
+    });
+
+    it("changes the content of a specified note", function() {
+      expect(oop.notes[x]).toBe(change);
+    });
+    it("throws error if note ID not found", function() {
+      expect(oop.edit).toThrow();
+    });
   });
 });

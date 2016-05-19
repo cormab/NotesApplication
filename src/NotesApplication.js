@@ -31,7 +31,7 @@ function NotesApplication(author) {
 			}
 		}
 		catch(err) {
-			console.log(err);
+			return err;
 		}
 	};
 	
@@ -83,7 +83,7 @@ function NotesApplication(author) {
 			
 		}
 		catch(err) {
-			console.log(err);
+			return err;
 		}
 	};
 
@@ -98,7 +98,7 @@ function NotesApplication(author) {
 			}
 		}
 		catch(err) {
-			console.log(err);
+			return err;
 		}
 	}
 }
