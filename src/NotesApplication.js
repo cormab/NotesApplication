@@ -13,7 +13,7 @@ function NotesApplication(author) {
 	// listNotes() - This function lists out each of the notes in the notes list in the following format. The note_id parameter below represents the respective index of each of the items in the list, the NOTE_CONTENT represent the note content and the author represents the note author.
 	this.listNotes  = function () {
 		try {
-			if(this.notes.length < 1) {
+			if(this.notes.length > 1) {
 				for(let index = 0; index < this.notes.length; index++) {
 					console.log(
 						"Note ID: " + index + "\n" +
@@ -72,7 +72,7 @@ function NotesApplication(author) {
 		return result;
 	};
 
-// delete(note_id) - This function deletes the note at the index note_id of the notes list.
+	// delete(note_id) - This function deletes the note at the index note_id of the notes list.
 	this.delete = function(note_id) {
 		try{
 			if(note_id >= 0 && note_id < this.notes.length) {
@@ -86,17 +86,34 @@ function NotesApplication(author) {
 			console.log(err);
 		}
 	};
+
+	// edit(note_id, new_content) - This function replaces the content in the note at note_id with new_content.
+	this.edit = function(note_id, new_content) {
+		try{
+			if(note_id >= 0 && note_id < this.notes.length) {
+				this.notes[note_id] = new_content;
+				console.log(this.notes[note_id]);
+			} else {
+				throw "Error - specified Note ID does not exist";
+			}
+		}
+		catch(err) {
+			console.log(err);
+		}
+	}
 }
 
 // Checking to make sure code works
 /*
 var oop = new NotesApplication("Morolake");
 oop.create("OOP stands for Object Oriented Programming. OOP is a way of programming that makes use of objects with attributes and behaviours(methods)");
-//oop.create("The main features of OOP are: Data Encapsulation, Inheritance and Polymorphism");
+oop.create("The main features of OOP are: Data Encapsulation, Inheritance and Polymorphism");
 //oop.create("Some OOP languages are JavaSript, Python, Java, Ruby, C/C++, etc");
+//oop.listNotes();
+//console.log("\nResult of running get: " + oop.get(5));
+//console.log("\nResult of running search: " + oop.search("main"));
+//oop.delete(5);
 oop.listNotes();
-console.log("\nResult of running get: " + oop.get(5));
-console.log("\nResult of running search: " + oop.search("main"));
-oop.delete(5);
+oop.edit(0,"OOP is dope");
 oop.listNotes();
 */
